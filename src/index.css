@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .form-input{
+    @apply h-10 rounded px-4 text-black outline-none border border-zinc-400 text-sm focus:border-red-700
+  }
+  .form-textarea{
+    @apply rounded p-4 text-black outline-none border border-zinc-400 text-sm focus:border-red-700
+  }
+  .button{
+    @apply rounded p-2 mt-2 bg-red-600 text-white outline-none border text-sm focus:border-red-700
+  }
+}
