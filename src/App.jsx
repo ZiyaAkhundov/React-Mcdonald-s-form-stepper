@@ -9,15 +9,15 @@ function App() {
   const steps=[
     {
       step:1,
-      title:"Name"
+      title:"Account"
     },
     {
       step:2,
-      title:"birth phone"
+      title:"Personal"
     },
     {
       step:3,
-      title: "work"
+      title: "Work"
     },
     {
       step:4,
@@ -67,7 +67,7 @@ function App() {
                 {
                   steps.map(step =>(
                     <button onClick={()=>stepHandle(step.step)} disabled={values.step < step.step} className={classnames("flex flex-col justify-center items-center py-2 relative z-10 text-white after:content after:absolute after:-z-10 after:left-9 after:w-20 after:border-2",{"after:border-green-500":values.step > step.step},{"after:border-red-500":values.step <= step.step},{"after:hidden":step.step===values.lastStep})} type="button" key={step.step}>
-                      <div className={classnames("w-16 h-16 flex items-center justify-center rounded-full  text-sm",{"bg-green-600": values.step > step.step,"bg-blue-600": values.step===step.step,"bg-red-600":values.step!==step.step})}>{values.step > step.step ? <img src={check}/> : step.title}</div>
+                      <div className={classnames("w-20 h-20 flex items-center justify-center rounded-full  text-sm font-serif",{"bg-green-600": values.step > step.step,"bg-blue-600": values.step===step.step,"bg-red-600":values.step!==step.step})}>{values.step > step.step ? <img src={check}/> : step.title}</div>
                     </button>
                   ))
                 }
