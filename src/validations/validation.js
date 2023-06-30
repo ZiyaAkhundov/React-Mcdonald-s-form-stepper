@@ -12,7 +12,7 @@ import * as Yup from "yup";
     is:2,
     then: schema => schema.required()
  }),
- phone : Yup.number().when('step',{
+ position : Yup.string().when('step',{
     is:2,
     then: schema => schema.required()
  }),
@@ -20,7 +20,7 @@ import * as Yup from "yup";
     is:3,
     then: schema => schema.required()
  }),
- position : Yup.string().when('step',{
+ phone : Yup.number().when('step',{
     is:3,
     then: schema => schema.required()
  }),

@@ -1,8 +1,30 @@
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import McdonaldsImg from "./assets/img/mcdonalds.png"
 import { validation } from "./validations/validation"
+import classnames from 'classnames';
+import check from './assets/img/checked.png'
 
 function App() {
+
+  const steps=[
+    {
+      step:1,
+      title:"Name"
+    },
+    {
+      step:2,
+      title:"birth phone"
+    },
+    {
+      step:3,
+      title: "work"
+    },
+    {
+      step:4,
+      title: "about"
+    }
+  ]
+
   return (
     <div>
       <Formik
@@ -15,10 +37,10 @@ function App() {
         surname: '',
         //step 2
         birth: '',
-        phone: '',
+        position:'',
         //step 3
         email:'',
-        position:'',
+        phone: '',
         //step 4
         about: ''
       }} onSubmit={(values,actions)=>{
@@ -33,13 +55,23 @@ function App() {
             const prevHandle = e =>{
               setFieldValue('step', values.step - 1);
             }
-
+            const stepHandle = e =>{
+              setFieldValue('step', e)
+            }
             return(
               <Form className="w-[400px] py-4 mx-auto">
 
               <header className="mb-4">
                 <img className="object-cover h-28 w-56 mx-auto" src={McdonaldsImg} alt="logo" />
-                <h3 className="text-lg font-medium text-zinc-700">Step {values.step}</h3>
+                <div className="grid grid-cols-4 gap-x-3 border border-zinc-400 rounded-md">
+                {
+                  steps.map(step =>(
+                    <button onClick={()=>stepHandle(step.step)} disabled={values.step < step.step} className={classnames("flex flex-col justify-center items-center py-2 relative z-10 text-white after:content after:absolute after:-z-10 after:left-9 after:w-20 after:border-2",{"after:border-green-500":values.step > step.step},{"after:border-red-500":values.step <= step.step},{"after:hidden":step.step===values.lastStep})} type="button" key={step.step}>
+                      <div className={classnames("w-16 h-16 flex items-center justify-center rounded-full  text-sm",{"bg-green-600": values.step > step.step,"bg-blue-600": values.step===step.step,"bg-red-600":values.step!==step.step})}>{values.step > step.step ? <img src={check}/> : step.title}</div>
+                    </button>
+                  ))
+                }
+                </div>
               </header>
 
                 {values.step === 1 && (
@@ -61,8 +93,12 @@ function App() {
                       <ErrorMessage name="birth" component="small" className="block text text-sm text-red-600 mt-1" />
                     </div>
                     <div>
-                      <Field name="phone" type="number" className="form-input" placeholder="Phone" />
-                      <ErrorMessage name="phone" component="small" className="block text text-sm text-red-600 mt-1" />
+                      <Field as="select" name="position" className="form-input" placeholder="Position">
+                        <option hidden>Position</option>
+                        <option value="Technic">Technic</option>
+                        <option value="brigade">a member of the brigade</option>
+                      </Field>
+                      <ErrorMessage name="position" component="small" className="block text text-sm text-red-600 mt-1" />
                     </div>
                   </div>
                 )}
@@ -73,12 +109,8 @@ function App() {
                       <ErrorMessage name="email" component="small" className="block text text-sm text-red-600 mt-1" />
                     </div>
                     <div>
-                      <Field as="select" name="position" className="form-input" placeholder="Position">
-                        <option hidden>Position</option>
-                        <option value="Technic">Technic</option>
-                        <option value="brigade">a member of the brigade</option>
-                      </Field>
-                      <ErrorMessage name="position" component="small" className="block text text-sm text-red-600 mt-1" />
+                      <Field name="phone" type="number" className="form-input" placeholder="Phone" />
+                      <ErrorMessage name="phone" component="small" className="block text text-sm text-red-600 mt-1" />
                     </div>
                   </div>
                 )}
